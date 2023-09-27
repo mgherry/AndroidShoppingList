@@ -26,9 +26,9 @@
                 x:Name="LatestListBtn"
                 Text="Continue Latest Shopping List"
                 SemanticProperties.Hint="Opens the latest shopping list"
-                Clicked="OnLastListClicked"
+                Clicked="OnLatestListClicked"
                 HorizontalOptions="Center" 
-                IsEnabled="False"/>
+                IsEnabled="True"/>
 
             <Button
                 x:Name="OpenListBtn"

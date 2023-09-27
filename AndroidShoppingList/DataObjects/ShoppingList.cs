@@ -16,6 +16,7 @@ namespace AndroidShoppingList.ScreenDisplays
         private String _shoppingListName;
         public String ShoppingListName { get { return _shoppingListName; } set { _shoppingListName = value; OnPropertyChanged(nameof(ShoppingListName)); } }
         public bool IsNotFull { get { return EntriesList.Count < MAX_NUMBER_OF_ENTRIES; } }
+        public bool IsEmpty { get { return EntriesList.Count == 0; } }
 
         private ObservableCollection<ShoppingItem> _entriesList;
         public ObservableCollection<ShoppingItem> EntriesList

@@ -11,7 +11,6 @@
             
             <Grid ColumnDefinitions="auto, *"
                   Margin="10,10,250,10">
-                
                 <Label
                     Text="Name: "
                     Grid.Column="0"
@@ -27,17 +26,13 @@
                     BindingContext="{x:Reference ListDisplayPageView}"
                     Text="{Binding Path=CurrentList.ShoppingListName, Mode=TwoWay}"
                     />
-
             </Grid>
-                
-
             
             <CollectionView BindingContext="{x:Reference ListDisplayPageView}" ItemsSource="{Binding CurrentList.EntriesList}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid ColumnDefinitions="30, *, 50, 150"
                               Margin="20,10,50,10">
-
                             <CheckBox 
                                 x:Name="ItemIsBoughtCheckBox"
                                 Grid.Column="0"
@@ -60,24 +55,30 @@
                             <Picker
                                 x:Name="MeasurementUnitPicker"
                                 Grid.Column="3"
-                                ItemsSource="{Binding Path=MeasurementUnitNames}"
-                                SelectedItem="{Binding Path=Measurement, Mode=TwoWay}"
+                                ItemsSource="{Binding Path=MeasurementUnitNames, Mode=TwoWay}"
+                                SelectedItem="{Binding Path=MeasurementAsText, Mode=TwoWay}"
                                 />
-
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            
-            <Button
-                x:Name="AddNewItemBtn"
-                Text="Add New Item"
-                SemanticProperties.Hint="Adds a new item to the list"
-                Clicked="OnAddNewItemClicked"
-                HorizontalOptions="Start"
-                Margin="10,10,50,10"
-                BindingContext="{x:Reference ListDisplayPageView}"
-                IsEnabled="{Binding Path=CurrentList.IsNotFull, Mode=OneWay}"/>
+
+            <Grid ColumnDefinitions="*, *"
+                        Margin="20,10,50,10">
+                <Button x:Name="AddNewItemBtn"
+                        Text="Add New Item"
+                        SemanticProperties.Hint="Adds a new item to the list"
+                        Clicked="OnAddNewItemClicked"
+                        HorizontalOptions="Start"
+                        BindingContext="{x:Reference ListDisplayPageView}"
+                        IsEnabled="{Binding Path=CurrentList.IsNotFull, Mode=OneWay}"/>
+
+                <Button x:Name="SaveListBtn"
+                        Text="Save Shopping List"
+                        SemanticProperties.Hint="Saves the currently displayed shopping list"
+                        Clicked="OnSaveListClicked"
+                        HorizontalOptions="End"/>
+            </Grid>
             
         </VerticalStackLayout>
     </ScrollView>

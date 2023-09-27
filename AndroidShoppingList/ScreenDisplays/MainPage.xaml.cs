@@ -1,4 +1,5 @@
 ﻿using AndroidShoppingList.ScreenDisplays;
+using AndroidShoppingList.FileHandlerLogic;
 
 namespace AndroidShoppingList;
 
@@ -9,11 +10,17 @@ public partial class MainPage : ContentPage
 		InitializeComponent();
 	}
 
-	private void OnLastListClicked(object sender, EventArgs e)
+	private async void OnLatestListClicked(object sender, EventArgs e)
 	{
-        // TODO
+        ShoppingList shoppingList = FileHandler.Instance.ReadLatestShoppingListFile();
+        Dictionary<string, object> shoppingListData = new Dictionary<string, object>
+        {
+            { "CurrentList", shoppingList }
+        };
+
+        await Shell.Current.GoToAsync(nameof(ListDisplayPage), shoppingListData);
     }
-    private void OnOpenListClicked(object sender, EventArgs e)
+    private async void OnOpenListClicked(object sender, EventArgs e)
     {
         // TODO
     }

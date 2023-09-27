@@ -41,6 +41,8 @@ namespace AndroidShoppingList.ScreenDisplays
         private MeasurementUnit _measurement;
         public MeasurementUnit Measurement { get { return _measurement; } set { _measurement = value; OnPropertyChanged(nameof(Measurement)); } }
 
+        public string MeasurementAsText { get { return _measurement.ToString(); } set { Enum.TryParse(value, out _measurement); OnPropertyChanged(nameof(Measurement)); } }
+
         public ShoppingItem()
         {
             Measurement = MeasurementUnit.piece; // Later TODO: Recieve default Measurement from Settings
