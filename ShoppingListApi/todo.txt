@@ -1,0 +1,2 @@
+- connect androido app to API
+- setup VS debugging for both -> start both at the same time

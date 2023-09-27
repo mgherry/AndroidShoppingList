@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AndroidShoppingList", "AndroidShoppingList\AndroidShoppingList.csproj", "{B5D5E54C-9490-4E01-A26F-7F952D819715}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingListApi", "ShoppingListApi\ShoppingListApi.csproj", "{474E2508-7483-43AC-9399-78A6978F4D8E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +19,10 @@ Global
 		{B5D5E54C-9490-4E01-A26F-7F952D819715}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5D5E54C-9490-4E01-A26F-7F952D819715}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B5D5E54C-9490-4E01-A26F-7F952D819715}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{474E2508-7483-43AC-9399-78A6978F4D8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{474E2508-7483-43AC-9399-78A6978F4D8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{474E2508-7483-43AC-9399-78A6978F4D8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{474E2508-7483-43AC-9399-78A6978F4D8E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
