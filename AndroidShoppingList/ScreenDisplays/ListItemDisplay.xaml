@@ -3,18 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AndroidShoppingList.ScreenDisplays.ListItemDisplay"
              xmlns:local="clr-namespace:AndroidShoppingList.ScreenDisplays"
-             x:Name="ListItemDisplayView">
+             x:Name="ListItemDisplayView"
+             x:DataType="local:ListItemDisplay">
     <Grid
         ColumnDefinitions="30, *, 50, 150"
         Margin="10,10,50,10">
 
         <CheckBox 
             x:Name="ItemIsBoughtCheckBox"
-            Grid.Column="0"/>
+            Grid.Column="0"
+            IsChecked="{Binding Path=CurrentEntry.IsCompleted, Mode=TwoWay}">
+        </CheckBox>
 
         <Entry
             x:Name="ItemNameEntryField"
             Grid.Column="1"
+            BindingContext="{x:Reference CurrentEntry}"
             />
         
         <Entry 

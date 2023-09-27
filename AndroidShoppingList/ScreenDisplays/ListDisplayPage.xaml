@@ -2,25 +2,73 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AndroidShoppingList.ScreenDisplays.ListDisplayPage"
-             xmlns:controls="clr-namespace:AndroidShoppingList.ScreenDisplays"
-             Title="Shopping List">
-
+             xmlns:local="clr-namespace:AndroidShoppingList.ScreenDisplays"
+             Title="Edit Shopping List"
+             x:Name="ListDisplayPageView">
+    
     <ScrollView>
         <VerticalStackLayout>
-            <Label 
-                Text="TODO: List Name Binding"
-                VerticalOptions="Center" 
-                HorizontalOptions="Start"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Name of the displayed list."
-                FontSize="24" 
-                Margin="10,10,50,10"/>
+            
+            <Grid ColumnDefinitions="auto, *"
+                  Margin="10,10,250,10">
+                
+                <Label
+                    Text="Name: "
+                    Grid.Column="0"
+                    SemanticProperties.HeadingLevel="Level1"
+                    VerticalTextAlignment="Center"
+                    Margin="0,0,10,5"
+                    />
+                <Entry
+                    x:Name="ShoppingListNameEntryField"
+                    Grid.Column="1"
+                    SemanticProperties.HeadingLevel="Level1"
+                    VerticalTextAlignment="Center"
+                    BindingContext="{x:Reference ListDisplayPageView}"
+                    Text="{Binding Path=CurrentList.ShoppingListName, Mode=TwoWay}"
+                    />
 
+            </Grid>
+                
 
-            <VerticalStackLayout x:Name="ListItemsArray">
-                <controls:ListItemDisplay/>
-            </VerticalStackLayout>
+            
+            <CollectionView BindingContext="{x:Reference ListDisplayPageView}" ItemsSource="{Binding CurrentList.EntriesList}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="30, *, 50, 150"
+                              Margin="20,10,50,10">
 
+                            <CheckBox 
+                                x:Name="ItemIsBoughtCheckBox"
+                                Grid.Column="0"
+                                IsChecked="{Binding Path=IsCompleted, Mode=TwoWay}"
+                                />
+
+                            <Entry
+                                x:Name="ItemNameEntryField"
+                                Grid.Column="1"
+                                Text="{Binding Path=ItemDescription, Mode=TwoWay}"
+                                />
+
+                            <Entry 
+                                x:Name="ItemCountEntryField"
+                                Grid.Column="2"
+                                Keyboard="Numeric"
+                                Text="{Binding Path=Amount, Mode=TwoWay}"
+                                />
+
+                            <Picker
+                                x:Name="MeasurementUnitPicker"
+                                Grid.Column="3"
+                                ItemsSource="{Binding Path=MeasurementUnitNames}"
+                                SelectedItem="{Binding Path=Measurement, Mode=TwoWay}"
+                                />
+
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            
             <Button
                 x:Name="AddNewItemBtn"
                 Text="Add New Item"
@@ -28,8 +76,9 @@
                 Clicked="OnAddNewItemClicked"
                 HorizontalOptions="Start"
                 Margin="10,10,50,10"
-                IsEnabled="True"/>
-
+                BindingContext="{x:Reference ListDisplayPageView}"
+                IsEnabled="{Binding Path=CurrentList.IsNotFull, Mode=OneWay}"/>
+            
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
