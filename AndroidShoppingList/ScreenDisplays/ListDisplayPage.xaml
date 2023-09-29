@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AndroidShoppingList.ScreenDisplays.ListDisplayPage"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:local="clr-namespace:AndroidShoppingList.ScreenDisplays"
-             Title="Edit Shopping List"
-             x:Name="ListDisplayPageView">
+             x:Class="AndroidShoppingList.ScreenDisplays.ListDisplayPage"
+             x:Name="ListDisplayPageView"
+             Title="Edit Shopping List">
     
     <ScrollView>
         <VerticalStackLayout>
@@ -31,44 +32,76 @@
             <CollectionView BindingContext="{x:Reference ListDisplayPageView}" ItemsSource="{Binding CurrentList.EntriesList}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid ColumnDefinitions="30, *, 50, 150"
+                        <Grid ColumnDefinitions="30, *, 50, 90, 50"
                               Margin="20,10,50,10">
-                            <CheckBox 
-                                x:Name="ItemIsBoughtCheckBox"
-                                Grid.Column="0"
-                                IsChecked="{Binding Path=IsCompleted, Mode=TwoWay}"
-                                />
+                            <CheckBox   x:Name="ItemIsBoughtCheckBox"
+                                        Grid.Column="0"
+                                        IsChecked="{Binding Path=IsCompleted, Mode=TwoWay}" />
 
-                            <Entry
-                                x:Name="ItemNameEntryField"
-                                Grid.Column="1"
-                                Text="{Binding Path=ItemDescription, Mode=TwoWay}"
-                                />
+                            <Entry  x:Name="ItemNameEntryField"
+                                    Grid.Column="1"
+                                    Text="{Binding Path=ItemDescription, Mode=TwoWay}" 
+                                    ReturnType="Next"/>
 
-                            <Entry 
-                                x:Name="ItemCountEntryField"
-                                Grid.Column="2"
-                                Keyboard="Numeric"
-                                Text="{Binding Path=Amount, Mode=TwoWay}"
-                                />
+                            <Entry  x:Name="ItemCountEntryField"
+                                    Grid.Column="2"
+                                    Keyboard="Numeric"
+                                    Text="{Binding Path=Amount, Mode=TwoWay}"
+                                    ReturnType="Next" />
 
-                            <Picker
-                                x:Name="MeasurementUnitPicker"
-                                Grid.Column="3"
-                                ItemsSource="{Binding Path=MeasurementUnitNames, Mode=TwoWay}"
-                                SelectedItem="{Binding Path=MeasurementAsText, Mode=TwoWay}"
-                                />
+                            <Picker x:Name="MeasurementUnitPicker"
+                                    Grid.Column="3"
+                                    ItemsSource="{Binding Path=MeasurementUnitNames, Mode=TwoWay}"
+                                    SelectedItem="{Binding Path=MeasurementAsText, Mode=TwoWay}" />
+
+                            <Button x:Name="DeleteItemBtn"
+                                    Text="X" 
+                                    FontSize="16"
+                                    TextColor="White"
+                                    BackgroundColor="Red"
+                                    SemanticProperties.Hint="Deletes this item from the list"
+                                    Grid.Column="4"
+                                    HorizontalOptions="Start"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:ListDisplayPage}}, Path=DeleteCommand}" 
+                                    CommandParameter="{Binding .}">
+
+                                <!--<ImageButton.Behaviors>
+                                    <toolkit:IconTintColorBehavior TintColor="White" />
+                                </ImageButton.Behaviors>-->
+                            </Button>
+
+                            <!--<ImageButton    x:Name="DeleteItemBtn"
+                                            Source="trashcanicon.svg"
+                                            SemanticProperties.Hint="Deletes the item from the list"
+                                            Grid.Column="4"
+                                            HorizontalOptions="Start"
+                                            BackgroundColor="Red"
+                                            BindingContext="{x:Reference ListDisplayPageView}"
+                                            Command="{Binding Path=ListDisplayPageView.DeleteCommand}"
+                                            CommandParameter="{Binding .}">
+
+                                --><!--<ImageButton.Behaviors>
+                                    <toolkit:IconTintColorBehavior TintColor="White" />
+                                </ImageButton.Behaviors>--><!--
+                            </ImageButton>-->
+
+                            <!--<Image Source="TrashcanIcon.svg">
+                                <ImageButton.Behaviors>
+                                    <toolkit:IconTintColorBehavior TintColor="White" />
+                                </ImageButton.Behaviors>
+                            </Image>-->
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
             <Grid ColumnDefinitions="*, *"
-                        Margin="20,10,50,10">
+                        Margin="20,10,55,10">
                 <Button x:Name="AddNewItemBtn"
                         Text="Add New Item"
                         SemanticProperties.Hint="Adds a new item to the list"
                         Clicked="OnAddNewItemClicked"
+                        Grid.Column="0"
                         HorizontalOptions="Start"
                         BindingContext="{x:Reference ListDisplayPageView}"
                         IsEnabled="{Binding Path=CurrentList.IsNotFull, Mode=OneWay}"/>
@@ -77,6 +110,7 @@
                         Text="Save Shopping List"
                         SemanticProperties.Hint="Saves the currently displayed shopping list"
                         Clicked="OnSaveListClicked"
+                        Grid.Column="1"
                         HorizontalOptions="End"/>
             </Grid>
             

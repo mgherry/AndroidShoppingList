@@ -1,9 +1,11 @@
-﻿using AndroidShoppingList.ScreenDisplays;
+﻿using Newtonsoft.Json;
+using AndroidShoppingList.ScreenDisplays;
 using AndroidShoppingList.UtilityClasses;
 using Microsoft.Maui.Storage;
 using System;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+using System.Security.Principal;
+//using System.Text.Json;
+//using System.Text.Json.Serialization;
 
 namespace AndroidShoppingList.FileHandlerLogic
 {
@@ -12,7 +14,7 @@ namespace AndroidShoppingList.FileHandlerLogic
         private const string APP_FILES_ROOT_FOLDER = "GregsShoppingList";
         private const string SHOPPING_LIST_FILES_SUB_FOLDER = "ShoppingListFiles";
         private const string DATABASE_FILE_SUB_FOLDER = "ShoppingListDatabase";
-        private const string SHOPPING_LIST_FILES_METADATA = "LatestShoppingList";
+        private const string SHOPPING_LIST_FILES_METADATA = "ShoppingListsMetadata";
 
         private const string JSON_FILE_EXTENSION = ".json";
         private const string INFO_FILE_EXTENSION = ".info";
@@ -45,7 +47,8 @@ namespace AndroidShoppingList.FileHandlerLogic
             string fileName = ConvertShoppingListNameToFileName(shoppingList.ShoppingListName);
             if (String.IsNullOrEmpty(fileName)) { return; }
             //
-            string jsonString = JsonSerializer.Serialize(shoppingList);
+            string jsonString = JsonConvert.SerializeObject(shoppingList);
+            //string jsonString = JsonSerializer.Serialize(shoppingList);
             string filePath = Path.Combine(ShoppingListFilesSubFolder, fileName);
             File.WriteAllText(filePath, jsonString);
             //
@@ -60,7 +63,8 @@ namespace AndroidShoppingList.FileHandlerLogic
             string jsonString = File.ReadAllText(filePath);
             if (String.IsNullOrEmpty(jsonString)) { return null; }
             //
-            ShoppingList shoppingList = JsonSerializer.Deserialize<ShoppingList>(jsonString);
+            ShoppingList shoppingList = JsonConvert.DeserializeObject<ShoppingList>(jsonString);
+            //ShoppingList shoppingList = JsonSerializer.Deserialize<ShoppingList>(jsonString);
             //
             return shoppingList;
         }
